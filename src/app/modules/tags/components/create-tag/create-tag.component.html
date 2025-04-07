@@ -1,0 +1,83 @@
+@if (house) {
+<span class="subtitle"
+  >Los <span class="subtitle-house">{{ "tags" | uppercase }}</span> registrados
+  se asignarán en
+  <span class="subtitle-house">{{ house.name | uppercase }}</span></span
+>
+<p-messages [(value)]="messages!" [enableService]="false" />
+<form autocomplete="on" [formGroup]="form" (ngSubmit)="create()">
+  <div class="form">
+    <div class="field-code">
+      <p-floatLabel>
+        <input
+          id="code"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="code"
+          appTitlecase
+          [ngClass]="getErrorMessage('code') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="code"
+          (keyup)="validateTag()"
+        />
+        <label for="plate">Codigo</label>
+      </p-floatLabel>
+      @if (getErrorMessage('code')) {
+      <small class="messageHelp" id="code-help">
+        {{ getErrorMessage("code") }}
+      </small>
+      }
+    </div>
+  </div>
+  <div class="form-options">
+    <p-button
+      icon="pi pi-sync"
+      label="Cambiar Casa"
+      severity="secondary"
+      (onClick)="this.resetSelections()"
+    ></p-button>
+    <p-button
+      [disabled]="this.form.invalid"
+      type="submit"
+      icon="pi pi-save"
+      label="Guardar"
+    ></p-button>
+  </div>
+</form>
+}@else {
+<span class="subtitle"
+  >Selecciona una
+  <span class="subtitle-house">{{ "casa" | uppercase }}</span> para registrar
+  <span class="subtitle-house">{{ "tags" | uppercase }}</span></span
+>
+<p-messages [(value)]="messages!" [enableService]="false" />
+<div class="selection">
+  <p-dropdown
+    [options]="(streets$ | async) || []"
+    inputId="street"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    filterBy="name"
+    [(ngModel)]="street"
+    (ngModelChange)="showHouses($event)"
+    placeholder="Calle"
+    optionLabel="name"
+  />
+  @if (street) {
+  <p-dropdown
+    [options]="(houses$ | async) || []"
+    inputId="house"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    [(ngModel)]="house"
+    (ngModelChange)="assignId($event)"
+    filterBy="name"
+    placeholder="Casa"
+    optionLabel="name"
+  />
+  }
+</div>
+
+}

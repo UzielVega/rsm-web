@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="createNotice()">
+  <div class="form">
+    <div class="field">
+      <p-floatLabel>
+        <input pInputText id="username" formControlName="title" />
+        <label for="username">Titulo</label>
+      </p-floatLabel>
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <textarea
+          [autoResize]="false"
+          variant="filled"
+          id="float-input"
+          pInputTextarea
+          maxlength="240"
+          formControlName="message"
+        >
+        </textarea>
+        <label for="float-input">Mensaje</label>
+      </p-floatLabel>
+    </div>
+    <div>
+      <p-calendar
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+        inputId="icondisplay"
+        formControlName="endDate"
+        appendTo="body"
+      />
+    </div>
+  </div>
+  <div class="form-footer">
+    <p-button type="submit" class="btn btn-primary">Crear</p-button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+@for (notice of notices(); track $index) {
+<div class="card-notice">
+  <div class="card-header">
+    <p class="title">{{ notice.title | uppercase }}</p>
+    <i class="pi pi-exclamation-circle" style="font-size: 2rem"></i>
+  </div>
+  <div class="card-content">
+    <div class="">{{ notice.message | uppercase }}</div>
+  </div>
+  <div class="card-footer">
+    <div class="details">
+      <span class="">
+        <i class="pi pi-calendar"></i>
+        <span class="date">{{ notice.endDate | date : "mediumDate" }}</span>
+      </span>
+    </div>
+    <div class="actions">
+      <p-button icon="pi pi-pencil" [rounded]="true" severity="info" />
+      <p-button
+        icon="pi pi-trash"
+        [rounded]="true"
+        severity="danger"
+        (onClick)="openConfirmDelete(notice)"
+      />
+    </div>
+  </div>
+</div>
+}

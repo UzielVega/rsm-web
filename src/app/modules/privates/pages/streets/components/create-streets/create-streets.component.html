@@ -1,0 +1,34 @@
+<form autocomplete="on" [formGroup]="form" (ngSubmit)="create()">
+  <div class="form">
+    <div class="field">
+      <p-floatLabel>
+        <input id="name" type="text" pInputText formControlName="name" />
+        <label for="name">Nombre</label>
+      </p-floatLabel>
+      @if (getErrorMessage('name')) {
+        <small class="messageHelp" id="name-help">
+          {{ getErrorMessage("name") }}
+        </small>
+        }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="description"
+          type="text"
+          pInputText
+          formControlName="description"
+        />
+        <label for="description">Descripcion</label>
+      </p-floatLabel>
+      @if (getErrorMessage('description')) {
+        <small class="messageHelp" id="description-help">
+          {{ getErrorMessage("description") }}
+        </small>
+        }
+    </div>
+  </div>
+  <div class="form-options">
+    <p-button type="submit" icon="pi pi-save" label="Guardar"></p-button>
+  </div>
+</form>

@@ -1,0 +1,22 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button (onClick)="openSidebar()" icon="pi pi-bars" [text]="true" />
+  </div>
+
+  <div class="p-toolbar-group-end">
+    <p-button
+      icon="pi pi-bell"
+      [text]="true"
+    />
+    <p-button
+      icon="pi pi-cog"
+      [text]="true"
+    />
+    <p-button
+      (onClick)="menu.menu!.toggle($event)"
+      icon="pi pi-ellipsis-v"
+      [text]="true"
+    />
+  </div>
+</p-toolbar>
+<app-options-menu #menu ></app-options-menu>

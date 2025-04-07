@@ -1,0 +1,150 @@
+@if (house) {
+<span class="subtitle"
+  >Los vehiculos registrados se asignarán en
+  <span class="subtitle-house">{{ house.name | uppercase }}</span></span
+>
+<form autocomplete="on" [formGroup]="form" (ngSubmit)="create()">
+  <div class="form">
+    <div class="field-plate">
+      <p-floatLabel>
+        <input
+          id="plate"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="plate"
+          appTitlecase
+          [ngClass]="getErrorMessage('plate') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="plate"
+        />
+        <label for="plate">Numero de Placa</label>
+      </p-floatLabel>
+      @if (getErrorMessage('plate')) {
+      <small class="messageHelp" id="plate-help">
+        {{ getErrorMessage("plate") }}
+      </small>
+      }
+    </div>
+
+    <div class="field-brand">
+      <p-floatLabel>
+        <input
+          id="brand"
+          type="text"
+          pInputText
+          autocomplete="brand"
+          appTitlecase
+          [ngClass]="getErrorMessage('brand') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="brand"
+        />
+        <label for="brand">Marca</label>
+      </p-floatLabel>
+      @if (getErrorMessage('brand')) {
+      <small class="messageHelp" id="brand-help">
+        {{ getErrorMessage("brand") }}
+      </small>
+      }
+    </div>
+
+    <div class="field-model">
+      <p-floatLabel>
+        <input
+          id="model"
+          type="text"
+          pInputText
+          autocomplete="model"
+          appTitlecase
+          [ngClass]="getErrorMessage('model') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="model"
+        />
+        <label for="model">Modelo</label>
+      </p-floatLabel>
+      @if (getErrorMessage('model')) {
+      <small class="messageHelp" id="model-help">
+        {{ getErrorMessage("model") }}
+      </small>
+      }
+    </div>
+
+    <div class="field-modelYear">
+      <p-floatLabel>
+        <p-calendar
+          view="year"
+          inputId="modelYear"
+          formControlName="modelYear"
+          [ngClass]="getErrorMessage('modelYear') ? 'ng-invalid ng-dirty' : ''"
+          appendTo="body"
+          dateFormat="yy"
+        />
+        <label for="modelYear">Año del Modelo</label>
+      </p-floatLabel>
+      @if (getErrorMessage('modelYear')) {
+      <small class="messageHelp" id="modelYear-help">
+        {{ getErrorMessage("modelYear") }}
+      </small>
+      }
+    </div>
+    <div class="field-color">
+      <p-floatLabel>
+        <input
+          id="color"
+          type="text"
+          pInputText
+          [ngClass]="getErrorMessage('color') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="color"
+        />
+        <label for="color">Color</label>
+      </p-floatLabel>
+      @if (getErrorMessage('color')) {
+      <small class="messageHelp" id="color-help">
+        {{ getErrorMessage("color") }}
+      </small>
+      }
+    </div>
+  </div>
+  <div class="form-options">
+    <p-button
+      icon="pi pi-sync"
+      label="Cambiar Casa"
+      severity="secondary"
+      (onClick)="this.resetSelections()"
+    ></p-button>
+    <p-button [disabled]="form.invalid" type="submit" icon="pi pi-save" label="Guardar"></p-button>
+  </div>
+</form>
+}@else {
+<span class="subtitle"
+  >Selecciona una casa para registrar
+  <span class="subtitle-house">{{ "vehiculos" | uppercase }}</span></span
+>
+<div class="selection">
+  <p-dropdown
+    [options]="streets()"
+    inputId="street"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    filterBy="name"
+    [(ngModel)]="street"
+    (ngModelChange)="showHouses($event)"
+    [showClear]="true"
+    placeholder="Calle"
+    optionLabel="name"
+  />
+  @if (street) {
+  <p-dropdown
+    [options]="houses()"
+    inputId="house"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    [(ngModel)]="house"
+    (ngModelChange)="assignId($event)"
+    filterBy="name"
+    [showClear]="true"
+    placeholder="Casa"
+    optionLabel="name"
+  />
+  }
+</div>
+}

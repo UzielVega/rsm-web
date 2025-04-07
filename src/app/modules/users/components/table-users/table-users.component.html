@@ -1,0 +1,99 @@
+<div *ngIf="users$ | async as users">
+  <p-table
+    #dt
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    [value]="users"
+    [paginator]="true"
+    paginatorPosition="bottom"
+    paginatorDropdownAppendTo="body"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20]"
+    [globalFilterFields]="['name', 'lastname', 'role.description', 'username']"
+    scrollDirection="vertical"
+    scrollHeight="flex"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <h2>Usuarios</h2>
+        <p-button
+          label="Crear Usuario"
+          icon="pi pi-plus"
+          iconPos="right"
+          class="btn btn-primary"
+          (onClick)="openNew()"
+        />
+      </div>
+      <div class="table-search">
+        <p-button
+          label="Limpiar"
+          [outlined]="true"
+          icon="pi pi-filter-slash"
+          (onClick)="clear(dt)"
+        />
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="searchValue"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Rol</th>
+        <th>Usuario</th>
+        <th>Foto</th>
+        <th>Estado</th>
+        <th>Opciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.name +" "+ user.lastname | titlecase }}</td>
+        <td>{{ user.role.description | titlecase }}</td>
+        <td>{{ user.username }}</td>
+        <td>
+          @if (user.profileImage) {
+            <p-avatar
+            [image]="urlProfilePhoto + user.profileImage"
+            shape="circle"
+          />
+          }
+
+        </td>
+        <td>
+          <p-tag
+            [severity]="user.isActive ? 'success' : 'warning'"
+            [value]="user.isActive ? 'Activo' : 'Bloqueado'"
+          />
+        </td>
+        <td>
+          <div class="options-table">
+            @for (button of buttons; track $index) { @if
+            (this.authService.hasRole(button.expectedRoles!)) {
+            <p-button
+              [id]="button.id"
+              (onClick)="button.action(user)"
+              [icon]="button.icon"
+              [severity]="
+                button.id === 'block-button'
+                  ? user.isActive
+                    ? 'warning'
+                    : 'success'
+                  : button.severity
+              "
+            />
+
+            }}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

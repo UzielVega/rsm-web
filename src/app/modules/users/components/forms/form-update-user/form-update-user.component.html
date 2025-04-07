@@ -1,0 +1,200 @@
+<form class="form" [formGroup]="form">
+  @switch (type()) { @case ('update') {
+
+    <div class="field-name">
+      <label for="name">Nombre(s) </label>
+      <p-inputGroup>
+        <input
+          pInputText
+          id="name"
+          autocomplete="name"
+          formControlName="name"
+          aria-describedby="name-help"
+          appTitlecase
+          [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="enableInput(['name'])"
+        />
+      </p-inputGroup>
+      @if (getErrorMessage('name')) {
+      <small class="messageHelp" id="name-help">
+        {{ getErrorMessage("name") }}
+      </small>
+      }
+    </div>
+    <div class="field-lastname">
+      <label for="lastname">Apellido(s) </label>
+      <p-inputGroup>
+        <input
+          pInputText
+          id="lastname"
+          formControlName="lastname"
+          aria-describedby="lastname-help"
+          appTitlecase
+          [ngClass]="getErrorMessage('lastname') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="enableInput(['lastname'])"
+        />
+      </p-inputGroup>
+      @if (getErrorMessage('lastname')) {
+      <small class="messageHelp" id="lastname-help">
+        {{ getErrorMessage("lastname") }}
+      </small>
+      }
+    </div>
+    <div class="field-phoneNumber">
+      <label for="phoneNumber">Telefono </label>
+      <p-inputGroup>
+        <p-inputNumber
+          inputId="phoneNumber"
+          mode="decimal"
+          minlength="10"
+          maxlength="10"
+          [useGrouping]="false"
+          aria-describedby="phoneNumber-help"
+          formControlName="phoneNumber"
+          [ngClass]="
+            getErrorMessage('phoneNumber') ? 'ng-invalid ng-dirty' : ''
+          "
+        />
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="enableInput(['phoneNumber', 'extension'])"
+        />
+      </p-inputGroup>
+      @if (getErrorMessage('phoneNumber')) {
+      <small class="messageHelp" id="phoneNumber-help">
+        {{ getErrorMessage("phoneNumber") }}
+      </small>
+      }
+    </div>
+    <div class="field-email">
+      <label for="email">Correo </label>
+      <p-inputGroup>
+        <input
+          id="email"
+          pInputText
+          autocomplete="email"
+          aria-describedby="email-help"
+          formControlName="email"
+          [ngClass]="getErrorMessage('email') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="enableInput(['email'])"
+        />
+      </p-inputGroup>
+      @if (getErrorMessage('email')) {
+      <small class="messageHelp" id="email-help">
+        {{ getErrorMessage("email") }}
+      </small>
+      }
+    </div>
+    <div class="field-username">
+      <label for="username">Nombre de Usuario </label>
+      <p-inputGroup>
+        <input
+          id="username"
+          pInputText
+          autocomplete="username"
+          aria-describedby="username-help"
+          formControlName="username"
+          [ngClass]="getErrorMessage('username') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          (onClick)="enableInput(['username'])"
+        />
+      </p-inputGroup>
+      @if (getErrorMessage('username')) {
+      <small class="messageHelp" id="username-help">
+        {{ getErrorMessage("username") }}
+      </small>
+      }
+    </div>
+
+  } @case ('update-role') {
+  <div class="field-role">
+    <label for="role">Selecciona un nuevo Rol</label>
+    <p-dropdown
+      [options]="roles()"
+      [ngClass]="getErrorMessage('rol') ? 'ng-invalid ng-dirty' : ''"
+      formControlName="roleId"
+      aria-describedby="role-help"
+      ariaLabelledBy="role"
+      appendTo="body"
+      [editable]="true"
+      optionValue="id"
+      optionLabel="description"
+    />
+    <small
+      class="messageHelp"
+      id="role-help"
+      *ngIf="getErrorMessage('role')"
+    >
+      {{ getErrorMessage("role") }}
+    </small>
+  </div>
+  } @case ('update-password') {
+  <div class="field-password">
+    <label for="password">Nueva Contraseña</label>
+    <p-password
+      inputId="password"
+      appendTo="body"
+      aria-describedby="password-help"
+      formControlName="password"
+      [ngClass]="getErrorMessage('password') ? 'ng-invalid ng-dirty' : ''"
+      promptLabel="Ingresa una contraseña"
+      weakLabel="Debil"
+      mediumLabel="Media"
+      strongLabel="Fuerte"
+      [toggleMask]="true"
+    />
+    <small
+      class="messageHelp"
+      id="new-password-help"
+      *ngIf="getErrorMessage('password')"
+    >
+      {{ getErrorMessage("password") }}
+    </small>
+  </div>
+  }@case ('update-photo') {
+  <div class="container-photo">
+    <img class="img-profile" [src]="profileImage()" />
+    <p-fileUpload
+      mode="advanced"
+      chooseLabel="Seleccionar"
+      [showUploadButton]="false"
+      (onSelect)="chargeImage($event)"
+      (onRemove)="clearImage()"
+      chooseIcon="pi pi-upload"
+      [showCancelButton]="false"
+      name="demo[]"
+      accept="image/*"
+      [multiple]="false"
+      maxFileSize="1000000"
+    />
+  </div>
+  } }
+</form>
+<div class="form-options">
+  <p-button
+    label="Guardar"
+    [disabled]="form.invalid"
+    (onClick)="save()"
+  />
+</div>

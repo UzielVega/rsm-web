@@ -1,0 +1,16 @@
+<p-toast />
+<p-confirmDialog />
+<div pFocusTrap class="container">
+  <div class="header">
+    <p-button icon="pi pi-plus" label="Programar Visita" (onClick)="openNew()" />
+    <p-button icon="pi pi-question" [rounded]="true" />
+  </div>
+  <div class="content">
+    <div class="content-header">
+      <span>Mis Visitas</span>
+    </div>
+    <div class="content-table">
+      <app-table-visits [houseId]="this.resident().house?.id"></app-table-visits>
+    </div>
+  </div>
+</div>

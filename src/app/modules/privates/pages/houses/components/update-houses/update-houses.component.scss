@@ -1,0 +1,43 @@
+.conatainer-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  .options-qr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    .download-link {
+      font-weight: bold;
+      font-size: medium;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 1rem;
+
+  .field-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    .messageHelp {
+      color: red;
+    }
+  }
+}
+.form-options {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: flex-end;
+}

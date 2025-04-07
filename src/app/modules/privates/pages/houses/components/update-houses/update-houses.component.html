@@ -1,0 +1,24 @@
+@if (type() === 'update') {
+<form class="form" [formGroup]="form">
+  <div class="field-description">
+    <p-floatLabel>
+      <input
+        pInputText
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+      />
+      <label for="description">Description</label>
+    </p-floatLabel>
+    @if (getErrorMessage('description')) {
+      <small class="messageHelp" id="description-help">
+        {{ getErrorMessage("description") }}
+      </small>
+      }
+  </div>
+</form>
+<div class="form-options">
+  <p-button label="Actualizar" icon="pi pi-sync" iconPos="right" [disabled]="form.invalid" class="btn btn-primary" (onClick)="update()"></p-button>
+</div>
+}

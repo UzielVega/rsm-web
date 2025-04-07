@@ -1,0 +1,56 @@
+<p-table
+  [tableStyle]="{ 'min-width': '50rem', height: '100%' }"
+  dataKey="uuid"
+  [value]="accesses()!"
+  [paginator]="false"
+  paginatorPosition="top"
+  paginatorDropdownAppendTo="body"
+  [rows]="30"
+  [scrollable]="true"
+  scrollDirection="vertical"
+  scrollHeight="flex"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <h2>Bitácora de Accesos</h2>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Tipo/Acceso</th>
+      <th>Codigo</th>
+      <th>Placa</th>
+      <th>Panel</th>
+      <th>Puerta</th>
+      <th>Casa</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Acceso</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-access>
+    <tr>
+      <td>
+        @if (access.accessType.name === 'peatonal') {
+        <p-tag icon="pi pi-user" severity="warning" value="Peatonal"></p-tag>
+        }
+        @if (access.accessType.name === 'vehicular') {
+        <p-tag icon="pi pi-car" severity="info" value="Vehicular"></p-tag>
+        }
+      </td>
+      <td>{{ access.tag ? access.tag.code : "No Aplica" }}</td>
+      <td>{{ access.vehicle ? access.vehicle.plate : "No Aplica" | titlecase }}</td>
+      <td>{{ access.panel.ip | titlecase }}</td>
+      <td>{{ access.door | titlecase }}</td>
+      <td>{{ access.house.name | titlecase }}</td>
+      <td>{{ access.date | titlecase }}</td>
+      <td>{{ access.time | titlecase }}</td>
+      <td>
+        <p-tag
+          [severity]="access.isAuthorized ? 'success' : 'warning'"
+          [value]="access.isAuthorized ? 'Autorizado' : 'Denegado'"
+        />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

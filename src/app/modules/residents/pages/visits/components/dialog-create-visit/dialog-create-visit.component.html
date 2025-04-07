@@ -1,0 +1,142 @@
+<div class="header">
+  <span class="subtitle-mark">DATOS GENERALES DEL VISITANTE</span>
+  <span class="subtitle">Seleccionar si tu visita entrará con carro o a pie.</span>
+  <p-selectButton
+    [options]="stateOptions"
+    [(ngModel)]="selectedOptionCar"
+    optionLabel="label"
+    optionValue="value"
+    [allowEmpty]="false"
+  />
+</div>
+<form autocomplete="on" [formGroup]="form()">
+  <div class="form">
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          appUppercase
+          autocomplete="name"
+          appTitlecase
+          [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="name"
+        />
+        <label for="name">Nombre</label>
+      </p-floatLabel>
+      @if (getErrorMessage('name')) {
+      <small class="messageHelp" id="name-help">
+        {{ getErrorMessage("name") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="lastname"
+          type="text"
+          pInputText
+          autocomplete="lastname"
+          appTitlecase
+          [ngClass]="getErrorMessage('lastname') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="lastname"
+        />
+        <label for="lastname">Apellido</label>
+      </p-floatLabel>
+      @if (getErrorMessage('lastname')) {
+      <small class="messageHelp" id="lastname-help">
+        {{ getErrorMessage("lastname") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="email"
+          pInputText
+          autocomplete="email"
+          aria-describedby="email-help"
+          placeholder="Correo"
+          formControlName="email"
+          [ngClass]="getErrorMessage('email') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <label for="email">Correo</label>
+      </p-floatLabel>
+      @if (getErrorMessage('email')) {
+      <small class="messageHelp" id="email-help">
+        {{ getErrorMessage("email") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <input
+        pInputText
+        inputId="phoneNumber"
+        [style]="{ width: '100%' }"
+        placeholder="Telefono"
+        aria-describedby="phoneNumber-help"
+        max="10"
+        min="10"
+        [maxLength]="10"
+        formControlName="phoneNumber"
+        [ngClass]="getErrorMessage('phoneNumber') ? 'ng-invalid ng-dirty' : ''"
+      />
+      @if (getErrorMessage('phoneNumber')) {
+      <small class="messageHelp" id="phoneNumber-help">
+        {{ getErrorMessage("phoneNumber") }}
+      </small>
+      }
+    </div>
+
+    <div class="field">
+      <p-calendar
+        formControlName="scheduleDate"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+        inputId="icondisplay"
+        [minDate]="minDate"
+        ariaLabelledBy="scheduleDate-help"
+        appendTo="body"
+        dateFormat="mm/dd/yy"
+        [ngClass]="getErrorMessage('scheduleDate') ? 'ng-invalid ng-dirty' : ''"
+        placeholder="Fecha Programada"
+      />
+      @if (getErrorMessage('scheduleDate')) {
+      <small class="messageHelp" id="scheduleDate-help">
+        {{ getErrorMessage("scheduleDate") }}
+      </small>
+      }
+    </div>
+    @if (selectedOptionCar) {
+    <span class="subtitle-mark">DATOS DEL VEHICULO</span>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="plate"
+          type="text"
+          pInputText
+          autocomplete="plate"
+          appTitlecase
+          [ngClass]="getErrorMessage('plate') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="plate"
+        />
+        <label for="plate">Matricula/Placa</label>
+      </p-floatLabel>
+      @if (getErrorMessage('plate')) {
+      <small class="messageHelp" id="plate-help">
+        {{ getErrorMessage("plate") }}
+      </small>
+      }
+    </div>
+    }
+  </div>
+</form>
+
+<div class="options">
+  <p-button
+    (onClick)="createVisit()"
+    icon="pi pi-save"
+    label="Guardar"
+  ></p-button>
+</div>

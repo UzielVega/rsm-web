@@ -1,0 +1,58 @@
+<p-toast></p-toast>
+<div class="container">
+  <div class="p-card card-login">
+    <div class="header">
+      <img src="images/logo.png" alt="Logo" height="165rem" />
+      <span class="title">
+        PORTAL
+        <span class="second-title"> RESIDENTE</span>
+      </span>
+      <span class="subtitle">Inicia sesión para continuar.</span>
+    </div>
+    <div class="content">
+      <div class="form">
+        <form autocomplete="on" [formGroup]="form">
+          <div class="form-field">
+            <input
+              pInputText
+              autofocus
+              id="username"
+              formControlName="username"
+              placeholder="Usuario"
+              type="text"
+            />
+          </div>
+
+          <div class="form-field">
+            <p-password
+              id="password"
+              autocomplete="on"
+              formControlName="password"
+              placeholder="Contraseña"
+              [toggleMask]="true"
+              [feedback]="false"
+            />
+          </div>
+        </form>
+      </div>
+
+      <div class="form-button">
+        <p-button
+          (onClick)="login()"
+          [disabled]="this.form.invalid"
+          type="submit"
+          size="large"
+          >Iniciar Sesión</p-button
+        >
+      </div>
+
+      <div class="form-options">
+        <a href="#">Olvidé mi contraseña</a>
+        <a [routerLink]="['/auth/login']">Soy Administrador</a>
+      </div>
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 Softch. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</div>

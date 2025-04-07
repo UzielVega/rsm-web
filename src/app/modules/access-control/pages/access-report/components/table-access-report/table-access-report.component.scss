@@ -1,0 +1,57 @@
+.options-table {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.table-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--highlight-color);
+  color: var(--highlight-text-color);
+
+  .export {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .reports {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    .filters {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+    .actions {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.spinner {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+}

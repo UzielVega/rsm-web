@@ -1,0 +1,116 @@
+<div class="container">
+  <!-- Header -->
+  <div class="container-header">
+    <h1>Panel de Administración</h1>
+  </div>
+
+  <div class="container-stats">
+    <!-- Tarjetas de Estadísticas -->
+    <div class="stat-card">
+      <i class="pi pi-map"></i>
+      <div class="stat-info">
+        <h2>{{ counters().streetsCount }}</h2>
+        <p>Calles</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="pi pi-home"></i>
+      <div class="stat-info">
+        <h2>{{ counters().housesCount }}</h2>
+        <p>Casas</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="pi pi-user"></i>
+      <div class="stat-info">
+        <h2>{{ counters().residentsCount }}</h2>
+        <p>Residentes</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="pi pi-users"></i>
+      <div class="stat-info">
+        <h2>{{ counters().visitsCount }}</h2>
+        <p>Visitas Hoy</p>
+      </div>
+    </div>
+  </div>
+  <!-- Gráfico Circular -->
+  <div class="charts">
+    <div>
+      <h2>Estadísticas</h2>
+      <p-chart type="doughnut" [data]="chartData"></p-chart>
+    </div>
+    
+    <div>
+      <h2>Porcentaje de Residentes</h2>
+      <p-chart type="pie" [data]="chartData"></p-chart>
+    </div>
+    
+  </div>
+
+  <!-- Contenido del Dashboard -->
+  <div class="container-content">
+    <div class="card recent-activities">
+      <h2>Actividades Recientes</h2>
+      <div class="filters">
+        <button
+          pButton
+          label="Hoy"
+          (click)="filterActivities('today')"
+        ></button>
+        <button
+          pButton
+          label="Semana"
+          (click)="filterActivities('week')"
+        ></button>
+        <button
+          pButton
+          label="Mes"
+          (click)="filterActivities('month')"
+        ></button>
+      </div>
+      <p-table [value]="filteredActivities">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-activity>
+          <tr>
+            <td>{{ activity.date }}</td>
+            <td>{{ activity.description }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Notificaciones -->
+    <div class="card notifications">
+      <h2>Notificaciones</h2>
+      <ul>
+        <li *ngFor="let notification of notifications">
+          <i class="pi pi-bell"></i> {{ notification.message }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Información Detallada -->
+  <p-dialog
+    [(visible)]="displayModal"
+    header="Detalles"
+    [modal]="true"
+    [closable]="true"
+  >
+    <p>Información detallada sobre {{ selectedStat?.title }}.</p>
+    <p-table [value]="selectedStat?.details">...</p-table>
+  </p-dialog>
+
+  <!-- Panel de Configuración -->
+  <p-sidebar [(visible)]="displaySidebar" position="right">
+    <h2>Configuraciones</h2>
+    <button pButton label="Modo Oscuro" (click)="toggleTheme()"></button>
+  </p-sidebar>
+</div>

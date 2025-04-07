@@ -1,0 +1,113 @@
+<div *ngIf="residents$ | async as residents">
+  <p-table
+    #dt
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="uuid"
+    [value]="residents"
+    [paginator]="true"
+    paginatorPosition="bottom"
+    paginatorDropdownAppendTo="body"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20]"
+    [globalFilterFields]="[
+      'name',
+      'lastname',
+      'house.name',
+      'phoneNumber',
+      'email'
+    ]"
+    scrollDirection="vertical"
+    scrollHeight="flex"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <h2>Residentes</h2>
+        <p-button
+          label="Crear Residente"
+          icon="pi pi-plus"
+          iconPos="right"
+          class="btn btn-primary"
+          (onClick)="add()"
+        />
+      </div>
+      <div class="table-search">
+        <p-button
+          label="Limpiar"
+          [outlined]="true"
+          icon="pi pi-filter-slash"
+          (onClick)="clear(dt)"
+        />
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="searchValue"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Asignado en</th>
+        <th>Telefono</th>
+        <th>Correo</th>
+        <th>Estado</th>
+        <th>Opciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-resident>
+      <tr>
+        <td>{{ resident.name + " " + resident.lastname | titlecase }}</td>
+        <td>
+          <p-tag
+            severity="info"
+            [value]="
+              resident.house ? (resident.house.name | titlecase) : 'NO ASIGNADO'
+            "
+          />
+        </td>
+        <td>{{ resident.phoneNumber }}</td>
+        <td>{{ resident.email | lowercase }}</td>
+        <td>
+          <p-tag
+            [severity]="resident.isActive ? 'success' : 'warning'"
+            [value]="resident.isActive ? '  Activo' : 'Bloqueado'"
+          />
+        </td>
+        <td>
+          <div class="options-table">
+            @for (button of buttons; track $index) {
+            <p-button
+              [id]="button.id"
+              (onClick)="button.action(resident)"
+              [icon]="button.icon"
+              [pTooltip]="button.tooltip"
+              [tooltipPosition]="button.tooltipPosition"
+              [disabled]="
+                button.id === 'send-credentials-button'
+                  ? resident.isFirstTime || resident.requiresPasswordReset
+                    ? false
+                    : true
+                  : false
+              "
+              [severity]="
+                button.id === 'block-button'
+                  ? resident.isActive
+                    ? 'warning'
+                    : 'success'
+                  : button.severity
+              "
+            >
+            </p-button>
+
+            }
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

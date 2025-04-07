@@ -1,0 +1,139 @@
+<form class="form" [formGroup]="form">
+  @switch (type()) { @case ('update') {
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="plate"
+          type="text"
+          pInputText
+          autocomplete="plate"
+          appTitlecase
+          [ngClass]="getErrorMessage('plate') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="plate"
+        />
+        <label for="plate">Numero de Placa</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['plate'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('plate')) {
+    <small class="messageHelp" id="plate-help">
+      {{ getErrorMessage("plate") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="brand"
+          type="text"
+          pInputText
+          autocomplete="brand"
+          appTitlecase
+          [ngClass]="getErrorMessage('brand') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="brand"
+        />
+        <label for="brand">Marca</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['brand'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('brand')) {
+    <small class="messageHelp" id="brand-help">
+      {{ getErrorMessage("brand") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="modelYear"
+          type="text"
+          pInputText
+          autocomplete="model"
+          appTitlecase
+          [ngClass]="getErrorMessage('model') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="model"
+        />
+        <label for="model">Modelo</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['model'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('model')) {
+    <small class="messageHelp" id="model-help">
+      {{ getErrorMessage("model") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <p-calendar
+          view="year"
+          inputId="modelYear"
+          formControlName="modelYear"
+          [ngClass]="getErrorMessage('modelYear') ? 'ng-invalid ng-dirty' : ''"
+          appendTo="body"
+          dateFormat="yy"
+        />
+        <label for="modelYear">Modelo</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['modelYear'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('modelYear')) {
+    <small class="messageHelp" id="modelYear-help">
+      {{ getErrorMessage("modelYear") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="color"
+          type="text"
+          pInputText
+          [ngClass]="getErrorMessage('color') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="color"
+        />
+        <label for="color">Color</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['color'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('color')) {
+    <small class="messageHelp" id="color-help">
+      {{ getErrorMessage("color") }}
+    </small>
+    }
+  </div>
+  }}
+</form>
+<div class="form-options">
+  <p-button label="Guardar" [disabled]="form.invalid" (onClick)="update()" />
+</div>

@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .card-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 40%;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+      background-color: var(--highlight-bg);
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .second-title {
+          color: var(--highlight-text-color);
+        }
+      }
+
+      .subtitle {
+        color: var(--highlight-text-color);
+        font-size: 1rem;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 50%;
+      justify-content: center;
+      gap: 1rem;
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 1rem;
+        gap: 1rem;
+
+        .form-field {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          margin: 2rem 0;
+        }
+        .remember-me {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .form-button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-top: 2rem;
+      }
+
+      .form-options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 1rem;
+        padding: 2rem;
+      }
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      height: 10%;
+      font-size: 0.8rem;
+      padding: 1rem;
+      color: var(--highlight-text-color);
+    }
+  }
+}

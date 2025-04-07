@@ -1,0 +1,26 @@
+<form class="form" [formGroup]="form">
+    <div class="field">
+        <p-dropdown
+        [options]="(streets$ | async) || []"
+        inputId="street"
+        appendTo="body"
+        [style]="{ width: '100%' }"
+        [filter]="true"
+        filterBy="name"
+        formControlName="street"
+        [showClear]="true"
+        placeholder="Calle"
+        optionLabel="name"
+      />
+      </div>
+</form>
+<div class="form-options">
+  <p-button
+    label="Agregar"
+    icon="pi pi-add"
+    iconPos="right"
+    [disabled]="form.invalid"
+    class="btn btn-primary"
+    (onClick)="create()"
+  ></p-button>
+</div>

@@ -1,0 +1,49 @@
+<form class="form" [formGroup]="form">
+  @switch (type()) { @case ('update') {
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="code"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="code"
+          appTitlecase
+          [ngClass]="getErrorMessage('code') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="code"
+          (keyup)="validateTag()"
+        />
+        <label for="plate">Codigo</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['code'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('code')) {
+    <small class="messageHelp" id="code-help">
+      {{ getErrorMessage("code") }}
+    </small>
+    }
+  </div>
+  }
+@case ('update-vehicle') {
+  <p-dropdown 
+      [options]="vehicles()"
+      appendTo="body"
+      formControlName="vehicleId"
+      optionValue="id"
+      optionLabel="plate" 
+      placeholder="Selecciona un Vehiculo" />
+} }
+</form>
+<div class="form-options">
+  <p-button
+    label="Guardar"
+    [disabled]="form.invalid || form.disabled"
+    (onClick)="update()"
+  />
+</div>

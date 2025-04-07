@@ -1,0 +1,138 @@
+<form class="form" [formGroup]="form()">
+  @switch (type()) { @case ('update') {
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="name"
+          [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="name"
+        />
+        <label for="plate">Nombre</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['name'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('name')) {
+    <small class="messageHelp" id="name-help">
+      {{ getErrorMessage("name") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="lastname"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="lastname"
+          [ngClass]="getErrorMessage('lastname') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="lastname"
+        />
+        <label for="lastname">Apellido</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['lastname'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('lastname')) {
+    <small class="messageHelp" id="lastname-help">
+      {{ getErrorMessage("lastname") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="phoneNumber"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="phoneNumber"
+          [ngClass]="
+            getErrorMessage('phoneNumber') ? 'ng-invalid ng-dirty' : ''
+          "
+          formControlName="phoneNumber"
+        />
+        <label for="phoneNumber">Telefono</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['phoneNumber'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('phoneNumber')) {
+    <small class="messageHelp" id="phoneNumber-help">
+      {{ getErrorMessage("phoneNumber") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="email"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="email"
+          [ngClass]="getErrorMessage('email') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="email"
+        />
+        <label for="email">Correo</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['email'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('email')) {
+    <small class="messageHelp" id="email-help">
+      {{ getErrorMessage("email") }}
+    </small>
+    }
+  </div>
+  <div class="form-options">
+    <p-button
+      icon="pi pi-sync"
+      label="Actualizar"
+      [disabled]="form().invalid || form().disabled"
+      (onClick)="update()"
+    />
+  </div>
+  } @case ('reset-password') { } @case ('sent-credentials') {
+  <span class="subtitle"
+    >Las credenciales serán
+    <span class="subtitle-mark">{{ "enviadas" | uppercase }}</span>
+    al número de
+    <span class="subtitle-mark">{{ "telefono" | uppercase }}</span>
+    registrado.</span
+  >
+  <div class="form-options">
+    <p-button
+      icon="pi pi-send"
+      label="Enviar"
+      [disabled]="form().invalid || form().disabled"
+      (onClick)="sendCredentials()"
+    />
+  </div>
+  } }
+</form>

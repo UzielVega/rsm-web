@@ -1,0 +1,111 @@
+<div *ngIf="(accesses$ | async) as accesses">
+  <p-table
+    #dt
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    [columns]="cols"
+    [value]="accesses"
+    [paginator]="false"
+    paginatorPosition="bottom"
+    paginatorDropdownAppendTo="body"
+    exportFilename="Reporte de Accesos"
+    [exportHeader]="'customExportHeader'"
+    [rows]="30"
+    [scrollable]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <div class="export">
+          <h2>Reportes</h2>
+          <p-button
+            [disabled]="accesses.length === 0"
+            icon="pi pi-external-link"
+            label="Exportar"
+            (onClick)="exportCSV()"
+          />
+        </div>
+
+        <div class="reports">
+          <div class="filters">
+            <p-calendar
+              #initialDateInput
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              [(ngModel)]="initialDate"
+              inputId="icondisplay"
+              placeholder="Fecha Inicial"
+            />
+            <p-calendar
+                #finalDateInput
+                [disabled]="!initialDate"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                [(ngModel)]="finalDate"
+                [minDate]="initialDate"
+                inputId="icondisplay"
+                placeholder="Fecha Final"
+            />
+          </div>
+          <div class="actions">
+            <p-button
+              [disabled]=""
+              label="Generar Reporte"
+              icon="pi pi-search"
+              (onClick)="generateReport()"
+            />
+            <p-button
+              [disabled]="accesses.length === 0"
+              label="Limpiar"
+              icon="pi pi-times"
+              (onClick)="clear()"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Tipo/Acceso</th>
+        <th>Codigo</th>
+        <th>Casa</th>
+        <th>Placa</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Acceso</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-access>
+      <tr>
+        <td>
+            @if (access.accessType.name === 'peatonal') {
+            <p-tag icon="pi pi-user" severity="warning" value="Peatonal"></p-tag>
+            }
+            @if (access.accessType.name === 'vehicular') {
+            <p-tag icon="pi pi-car" severity="info" value="Vehicular"></p-tag>
+            }
+          </td>
+        <td>{{ access.tag ? access.tag.code : "No Aplica" }}</td>
+        <td>{{ access.house.name | titlecase }}</td>
+        <td>{{ access.vehicle ? access.vehicle.plate : "No Aplica" | titlecase }}</td>
+        <td>{{ access.date | titlecase }}</td>
+        <td>{{ access.time | titlecase }}</td>
+        <td>
+          <p-tag
+            [severity]="access.isAuthorized ? 'success' : 'warning'"
+            [value]="access.isAuthorized ? 'Autorizado' : 'Denegado'"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+@if (loading) {
+<p-progressSpinner
+  class="spinner"
+  mode="indeterminate"
+  strokeWidth="8"
+  fill="#EEEEEE"
+  animationDuration=".5s"
+></p-progressSpinner>
+}

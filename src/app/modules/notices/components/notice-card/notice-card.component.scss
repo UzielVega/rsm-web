@@ -1,0 +1,105 @@
+.card-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  transition: transform 0.3s ease-in-out;
+  background-color: var(--highlight-color);
+  box-shadow: 0 0 1rem var(--highlight-text-color);
+  animation: slideLeftToRight 0.5s ease-in-out;
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: large;
+      font-weight: bold;
+      color: var(--highlight-text-color);
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: medium;
+    font-weight: 500;
+  }
+
+  .card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+      margin-left: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+}
+
+.card-notice:hover {
+  transform: translate(0.5rem, 0);
+}
+
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@media (min-width: 768px) {
+  .card-notice {
+    width: 50rem;
+
+    .card-header {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+    .card-content {
+      flex-direction: row;
+    }
+
+    .card-footer {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

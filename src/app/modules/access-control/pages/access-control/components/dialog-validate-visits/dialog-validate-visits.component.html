@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="container-info">
+    <div class="visita-detalle-card">
+      <div class="title">
+        <h2>{{ visitData().accessType | uppercase }}</h2>
+        <p-tag
+          [icon]="visitData().hasVehicle ? 'pi pi-car' : 'pi pi-user'"
+          [severity]="visitData().hasVehicle ? 'info' : 'warning'"
+          [value]="visitData().hasVehicle ? 'VEHICULAR' : 'PEATONAL'"
+        />
+      </div>
+
+      <div class="visita-detalle-grid">
+        <div class="visita-detalle-item">
+          <label>Nombre del Visitante:</label>
+          <p>{{ visitData().name + " " + visitData().lastname | titlecase }}</p>
+        </div>
+
+        <div class="visita-detalle-item">
+          <label>Fecha de Visita:</label>
+          <p>{{ visitData().scheduleDate | date : "shortDate" }}</p>
+        </div>
+        <div class="visita-detalle-item">
+          <label>Hora de Llegada:</label>
+          <p>{{ visitData().entryDate | date : "shortTime" }}</p>
+        </div>
+        <div class="visita-detalle-item">
+          <label>Hora de Salida:</label>
+          <p>{{ visitData().exitDate | date : "shortTime" }}</p>
+        </div>
+        <div class="visita-detalle-item">
+          <label>Visita:</label>
+          <p>{{ visitData().street | titlecase }}</p>
+        </div>
+        <div class="visita-detalle-item">
+          <label>Casa:</label>
+          <p>{{ visitData().house | titlecase }}</p>
+        </div>
+        @if (visitData().hasVehicle) {
+        <div class="visita-detalle-item">
+          <label>Placa del Vehículo:</label>
+          <p>{{ visitData().plate | uppercase }}</p>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="container-butons">
+    <p-button severity="primary" (onClick)="allowAccess()">Permitir</p-button>
+  </div>
+</div>

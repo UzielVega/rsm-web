@@ -1,0 +1,31 @@
+.subtitle-house{
+  color: var(--primary-color);
+  font-size: small;
+  font-weight: bold;
+  font-style: oblique;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-options {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .selection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+  }

@@ -1,0 +1,38 @@
+.options-table {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
+  .table-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--highlight-color);
+    color: var(--highlight-text-color);
+  }
+  .table-search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    .search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      .search-icon {
+        color: var(--highlight-text-color);
+      }
+      .search-input {
+        background-color: var(--highlight-color);
+        color: var(--highlight-text-color);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        width: 100%;
+      }
+    }
+  }
+  

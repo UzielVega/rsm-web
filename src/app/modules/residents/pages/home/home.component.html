@@ -1,0 +1,17 @@
+<div class="dashboard">
+  <div class="header">
+    <h2>{{ greetingMessage }}, {{ residentName() | titlecase }}</h2>
+    <p>Escanea este QR de acceso único para accesar.</p>
+  </div>
+
+  <div class="content">
+    <div class="qrcode">
+      <qrcode
+        [qrdata]="resident().qrCodeUnique!"
+        [width]="256"
+        [errorCorrectionLevel]="'M'"
+        [margin]="1"
+      ></qrcode>
+    </div>
+  </div>
+</div>

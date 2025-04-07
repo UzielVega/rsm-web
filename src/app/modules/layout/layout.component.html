@@ -1,0 +1,8 @@
+<div class="container-home-main">
+  <app-sidebar #sidebar></app-sidebar>
+  <app-topbar (onOpenSideBar)="sidebar.sidebarVisible.set(true)"></app-topbar>
+
+  <div class="container-home-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

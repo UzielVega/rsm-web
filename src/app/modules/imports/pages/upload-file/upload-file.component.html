@@ -1,0 +1,54 @@
+<p-toast />
+<p-confirmDialog />
+<div pFocusTrap class="p-card container">
+  <div class="header">
+    <span>Importación</span>
+    <p-button icon="pi pi-question" [rounded]="true" />
+  </div>
+  <div class="content">
+    <div class="content-header">
+      <p-fileUpload
+        mode="advanced"
+        chooseLabel="Subir Archivo"
+        chooseIcon="pi pi-upload"
+        name="demo[]"
+        accept=".csv"
+        maxFileSize="1000000"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+        (onSelect)="onUpload($event.originalEvent)"
+        (onRemove)="onRemove($event)"
+      />
+      @if (previewData().length > 0) {
+      <p-button
+        severity="primary"
+        label="Iniciar Importación"
+        icon="pi pi-file-import"
+        (onClick)="uploadData()"
+      ></p-button>
+      }
+    </div>
+    @if (loading()) {
+    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+    }
+    <div class="content-table">
+      @if (previewData().length > 0) {
+      <div>
+        <h3>Vista previa:</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th *ngFor="let header of headers()">{{ header }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of previewData()">
+              <td *ngFor="let header of headers()">{{ row[header] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      }
+    </div>
+  </div>
+</div>

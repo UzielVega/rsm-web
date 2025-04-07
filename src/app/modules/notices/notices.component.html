@@ -1,0 +1,17 @@
+<p-toast></p-toast>
+<div class="container">
+  <p-confirmDialog></p-confirmDialog>
+  <div class="header">
+    <p class="title">Avisos</p>
+    <p-button
+      (onClick)="openAddNotice()"
+      label="Nuevo Aviso"
+      icon="pi pi-plus"
+      [rounded]="true"
+      severity="primary"
+    />
+  </div>
+  <div class="content">
+    <app-notice-card></app-notice-card>
+  </div>
+</div>

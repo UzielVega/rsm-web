@@ -1,0 +1,14 @@
+<p-toast />
+<p-confirmDialog />
+<div pFocusTrap class="container">
+  <div class="content">
+      <div class="content-table">
+        <app-table-control [street]="street()" [houses]="houses()"></app-table-control>
+      </div>
+      <div class="content-charts">
+        <div class="chart">
+          <p-chart type="doughnut" [data]="data" [options]="options" />
+        </div>
+      </div>
+    </div>
+  </div>

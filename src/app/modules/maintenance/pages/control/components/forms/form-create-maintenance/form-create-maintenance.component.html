@@ -1,0 +1,112 @@
+@if (this.selectedHouse()) {
+<div class="header">
+  <span class="subtitle"
+    >Periodo:
+    <span class="description">{{ maintenancePeriod | uppercase }}</span></span
+  >
+  <span class="subtitle"
+    >Costo Mensual:
+    <span class="description">${{ maintenancePrice }}</span></span
+  >
+</div>
+<p-messages [(value)]="messages!" [enableService]="false" />
+
+<div class="form">
+  @if (data().maintenancePeriod ==='mensual') {
+  <span>Selecciona el meses a pagar:</span>
+  }@else {
+  <span>Selecciona los meses a pagar:</span>
+  }
+
+  <div class="field-date">
+    <p-calendar
+      [(ngModel)]="dates"
+      view="month"
+      selectionMode="multiple"
+      (ngModelChange)="showMonths()"
+      [maxDateCount]="maxDateCount"
+      [maxDate]="startDate ? maxDate : null"
+      [minDate]="startDate ? startDate : null"
+      [inline]="true"
+      [showButtonBar]="true"
+      [showClear]="true"
+      [readonlyInput]="true"
+    />
+  </div>
+</div>
+<div class="selected-months">
+  <span class="title">Meses Seleccionados:</span>
+  <div class="months">
+    <span *ngFor="let date of dates" class="month">{{
+      date.toLocaleString('default', { month: 'long' }) | uppercase
+    }}</span>
+  </div>
+</div>
+<div class="field-methodPay">
+  <p-dropdown
+    [(ngModel)]="selectedPaymentMethod"
+    [options]="(paymentMethods$ | async) || []"
+    optionLabel="name"
+    dataKey="uuid"
+    placeholder="Metodo de Pago"
+  />
+</div>
+<div class="total">
+  <span class="title-total"
+    >TOTAL: <span class="number-total">${{ maintenanceTotal() }}</span></span
+  >
+</div>
+<div class="form-options">
+  <p-button
+    icon="pi pi-sync"
+    label="Cambiar Casa"
+    severity="secondary"
+    (onClick)="this.resetSelections()"
+  ></p-button>
+  <p-button
+    type="submit"
+    icon="pi pi-save"
+    label="Realizar Pago"
+    (onClick)="create()"
+  ></p-button>
+</div>
+}@else {
+<span
+  >Selecciona una
+  <span class="subtitle-house">{{ "casa" | uppercase }}</span> para registrar
+  <span class="subtitle-house">{{
+    "pago de mantenimiento" | uppercase
+  }}</span></span
+>
+<p-messages [(value)]="messages!" [enableService]="false" />
+<div class="selection">
+  <p-dropdown
+    [options]="(streets$ | async) || []"
+    inputId="street"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    filterBy="name"
+    [(ngModel)]="selectedStreet"
+    (ngModelChange)="showHouses($event)"
+    [showClear]="true"
+    placeholder="Calle"
+    optionLabel="name"
+  />
+  @if (houses()) {
+  <p-dropdown
+    [options]="houses()"
+    inputId="house"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    [(ngModel)]="selectedHouse"
+    filterBy="name"
+    [showClear]="true"
+    placeholder="Casa"
+    optionLabel="name"
+  />
+  }
+</div>
+
+}

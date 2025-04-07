@@ -1,0 +1,43 @@
+.stepper {
+  padding-right: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  gap: 1rem;
+  padding-top: 1rem;
+
+  .field {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  span,
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .messageHelp {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: red;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+.actions-general {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+}

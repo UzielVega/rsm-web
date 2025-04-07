@@ -1,0 +1,11 @@
+@for (menuItem of menuItems; track $index) { @if
+(this.authService.hasRole(menuItem.expectedRoles!)) {
+<ul class="list">
+  <li class="list-item">
+    <a class="vinculo" pRipple (click)="navigate(menuItem.path!)">
+      <i ngClass="icon" [class]="menuItem.icon!"></i>
+      <span class="text">{{ menuItem.title }}</span>
+    </a>
+  </li>
+</ul>
+} }

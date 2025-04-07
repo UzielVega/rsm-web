@@ -1,0 +1,74 @@
+.options-table {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.table-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--highlight-color);
+  color: var(--highlight-text-color);
+
+  .visit-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .custom-chip {
+      padding-left: 0;
+      padding-right: 0;
+
+      .chip-icon {
+        background-color: var(
+          --primary-color,
+          #007bff
+        ); // Usa una variable CSS para el color primario
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chip-text {
+        margin-left: 0.5rem; // 0.5rem es equivalente a 8px
+        font-weight: 500; // font-medium
+      }
+    }
+  }
+}
+.table-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  .search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    .search-icon {
+      color: var(--highlight-text-color);
+    }
+    .search-input {
+      background-color: var(--highlight-color);
+      color: var(--highlight-text-color);
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      width: 100%;
+    }
+  }
+}

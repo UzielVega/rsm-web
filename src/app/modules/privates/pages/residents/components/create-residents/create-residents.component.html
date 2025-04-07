@@ -1,0 +1,141 @@
+@if (house) {
+<span class="subtitle"
+  >Los
+  <span class="subtitle-house">{{ "residentes" | uppercase }}</span> registrados
+  se asignarán en
+  <span class="subtitle-house">{{ this.house.name | uppercase }}</span></span
+>
+<form autocomplete="on" [formGroup]="form">
+  <div class="form">
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="name"
+          formControlName="name"
+          [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+        />
+        <label for="plate">Nombre</label>
+      </p-floatLabel>
+      @if (getErrorMessage('name')) {
+      <small class="messageHelp" id="name-help">
+        {{ getErrorMessage("name") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="lastname"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="lastname"
+          [ngClass]="getErrorMessage('lastname') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="lastname"
+        />
+        <label for="plate">Apellido</label>
+      </p-floatLabel>
+      @if (getErrorMessage('lastname')) {
+      <small class="messageHelp" id="lastname-help">
+        {{ getErrorMessage("lastname") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="phoneNumber"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="phoneNumber"
+          [ngClass]="
+            getErrorMessage('phoneNumber') ? 'ng-invalid ng-dirty' : ''
+          "
+          formControlName="phoneNumber"
+        />
+        <label for="plate">Telefono</label>
+      </p-floatLabel>
+      @if (getErrorMessage('phoneNumber')) {
+      <small class="messageHelp" id="phoneNumber-help">
+        {{ getErrorMessage("phoneNumber") }}
+      </small>
+      }
+    </div>
+    <div class="field">
+      <p-floatLabel>
+        <input
+          id="email"
+          type="text"
+          pInputText
+          autofocus
+          autocomplete="email"
+          [ngClass]="getErrorMessage('email') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="email"
+        />
+        <label for="plate">Correo</label>
+      </p-floatLabel>
+      @if (getErrorMessage('email')) {
+      <small class="messageHelp" id="email-help">
+        {{ getErrorMessage("email") }}
+      </small>
+      }
+    </div>
+  </div>
+  <div class="form-options">
+    <p-button
+      icon="pi pi-sync"
+      label="Cambiar Casa"
+      severity="secondary"
+      (onClick)="this.resetSelections()"
+    ></p-button>
+    <p-button
+      [disabled]="form.invalid"
+      (onClick)="create()"
+      icon="pi pi-save"
+      label="Guardar"
+    ></p-button>
+  </div>
+</form>
+}@else {
+<span class="subtitle"
+  >Selecciona una
+  <span class="subtitle-house">{{ "casa" | uppercase }}</span> para registrar
+  <span class="subtitle-house">{{ "residentes" | uppercase }}</span></span
+>
+<div class="selection">
+  <p-dropdown
+    [options]="(streets$ | async) || []"
+    inputId="street"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    filterBy="name"
+    [(ngModel)]="street"
+    (ngModelChange)="showHouses($event)"
+    [showClear]="true"
+    placeholder="Calle"
+    optionLabel="name"
+  />
+  @if (street) {
+  <p-dropdown
+    [options]="(houses$ | async) || []"
+    inputId="house"
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [filter]="true"
+    [(ngModel)]="house"
+    (ngModelChange)="assignId($event)"
+    filterBy="name"
+    [showClear]="true"
+    placeholder="Casa"
+    optionLabel="name"
+  />
+  }
+</div>
+
+}

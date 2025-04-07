@@ -1,0 +1,82 @@
+<form class="form" [formGroup]="form">
+  @switch (type()) { @case ('update') {
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          autocomplete="name"
+          appTitlecase
+          [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+          formControlName="name"
+        />
+        <label for="name">Nombre</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['name'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('name')) {
+    <small class="messageHelp" id="name-help">
+      {{ getErrorMessage("name") }}
+    </small>
+    }
+  </div>
+  <div>
+    <p-inputGroup>
+      <p-floatLabel>
+        <input
+          id="description"
+          type="text"
+          pInputText
+          [ngClass]="
+            getErrorMessage('description') ? 'ng-invalid ng-dirty' : ''
+          "
+          formControlName="description"
+        />
+        <label for="description">Descripcion</label>
+      </p-floatLabel>
+      <p-button
+        icon="pi pi-pencil"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="enableInput(['description'])"
+      />
+    </p-inputGroup>
+    @if (getErrorMessage('description')) {
+    <small class="messageHelp" id="description-help">
+      {{ getErrorMessage("description") }}
+    </small>
+    }
+  </div>
+  <div class="form-options">
+    <p-button
+      label="Guardar"
+      [disabled]="form.invalid"
+      (onClick)="update()"
+    />
+  </div>
+  } @case ('update-admin') {
+  <p-dropdown
+    [options]="houses()"
+    appendTo="body"
+    formControlName="houseId"
+    optionValue="id"
+    optionLabel="name"
+    placeholder="Selecciona una Casa"
+  />
+
+  <div class="form-options">
+    <p-button
+      label="Guardar"
+      [disabled]="form.invalid"
+      (onClick)="adminUpdate()"
+    />
+  </div>
+  } }
+</form>

@@ -1,0 +1,99 @@
+<div *ngIf="tags$ | async as tags">
+  <p-table
+    #dt
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    [value]="tags"
+    [paginator]="true"
+    paginatorPosition="bottom"
+    paginatorDropdownAppendTo="body"
+    [globalFilterFields]="['code', 'house.name', 'vehicle.plate']"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <h2>Tags</h2>
+        <p-button
+          label="Crear Tag"
+          icon="pi pi-plus"
+          iconPos="right"
+          class="btn btn-primary"
+          (onClick)="add()"
+        />
+      </div>
+      <div class="table-search">
+        <p-button
+          label="Limpiar"
+          [outlined]="true"
+          icon="pi pi-filter-slash"
+          (onClick)="clear(dt)"
+        />
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="searchValue"
+            (input)="dt.filterGlobal(searchValue, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Codigo</th>
+        <th>Asignado a Casa</th>
+        <th>Asignado a Vehiculo</th>
+        <th>Estado</th>
+        <th>Opciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tag>
+      <tr>
+        <td>{{ tag.code | titlecase }}</td>
+        <td>
+          <p-tag
+            [severity]="tag.house ? 'secondary' : 'warning'"
+            [value]="tag.house ? tag.house.name : 'Sin Asignar'"
+          />
+        </td>
+        <td>
+          <p-tag
+            [severity]="tag.vehicle ? 'secondary' : 'warning'"
+            [value]="tag.vehicle ? tag.vehicle.plate : 'Sin Asignar'"
+          />
+        </td>
+        <td>
+          <p-tag
+            [severity]="tag.isActive ? 'success' : 'warning'"
+            [value]="tag.isActive ? 'Activo' : 'Bloqueado'"
+          />
+        </td>
+        <td>
+          <div class="options-table">
+            @for (button of buttons; track $index) {
+            <p-button
+              [id]="button.id"
+              (onClick)="button.action(tag)"
+              [icon]="button.icon"
+              [pTooltip]="button.tooltip"
+              [tooltipPosition]="button.tooltipPosition"
+              [severity]="
+                button.id === 'block-button'
+                  ? tag.isActive
+                    ? 'warning'
+                    : 'success'
+                  : button.severity
+              "
+            >
+            </p-button>
+
+            }
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,262 @@
+<form [formGroup]="form">
+  <p-stepper
+    class="stepper"
+    [linear]="true"
+    orientation="vertical"
+    (activeStepChange)="hola($event)"
+    [activeStep]="0"
+  >
+    <p-stepperPanel header="General">
+      <ng-template
+        id="general"
+        pTemplate="content"
+        let-nextCallback="nextCallback"
+        let-index="index"
+      >
+        <div class="form">
+          <div class="field">
+            <input
+              pInputText
+              id="name"
+              autocomplete="name"
+              formControlName="name"
+              aria-describedby="name-help"
+              placeholder="Nombre(s)"
+              appTitlecase
+              [ngClass]="getErrorMessage('name') ? 'ng-invalid ng-dirty' : ''"
+            />
+            @if (getErrorMessage('name')) {
+            <small class="messageHelp" id="name-help">
+              {{ getErrorMessage("name") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <input
+              pInputText
+              id="lastname"
+              formControlName="lastname"
+              aria-describedby="lastname-help"
+              placeholder="Apellido(s)"
+              appTitlecase
+              [ngClass]="
+                getErrorMessage('lastname') ? 'ng-invalid ng-dirty' : ''
+              "
+            />
+            @if (getErrorMessage('lastname')) {
+            <small class="messageHelp" id="lastname-help">
+              {{ getErrorMessage("lastname") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <p-dropdown
+              formControlName="gender"
+              [options]="gender"
+              [style]="{ width: '100%' }"
+              optionLabel="name"
+              optionValue="code"
+              placeholder="Genero"
+            />
+          </div>
+          <div class="field">
+            <p-calendar
+              formControlName="birthday"
+              [iconDisplay]="'input'"
+              [style]="{ width: '100%' }"
+              appendTo="body"
+              [showIcon]="true"
+              inputId="icondisplay"
+              dateFormat="yy/mm/dd"
+              placeholder="Cumpleaños"
+            />
+          </div>
+          <div class="field">
+            <input
+              pInputText
+              id="phoneNumber"
+              minlength="10"
+              maxlength="10"
+              placeholder="Telefono"
+              aria-describedby="phoneNumber-help"
+              formControlName="phoneNumber"
+              [ngClass]="
+                getErrorMessage('phoneNumber') ? 'ng-invalid ng-dirty' : ''
+              "
+            />
+
+            @if (getErrorMessage('phoneNumber')) {
+            <small class="messageHelp" id="phoneNumber-help">
+              {{ getErrorMessage("phoneNumber") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <input
+              id="email"
+              pInputText
+              autocomplete="email"
+              aria-describedby="email-help"
+              placeholder="Correo"
+              formControlName="email"
+              [ngClass]="getErrorMessage('email') ? 'ng-invalid ng-dirty' : ''"
+            />
+            @if (getErrorMessage('email')) {
+            <small class="messageHelp" id="email-help">
+              {{ getErrorMessage("email") }}
+            </small>
+            }
+          </div>
+        </div>
+        <div class="actions-general">
+          <p-button
+            icon="pi pi-arrow-down"
+            [rounded]="true"
+            [text]="true"
+            iconPos="right"
+            (onClick)="
+              validateForm(nextCallback, [
+                'name',
+                'lastname',
+                'phoneNumber',
+                'email',
+                'extension'
+              ])
+            "
+          />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Inicio de Sesion">
+      <ng-template
+        id="permissions"
+        pTemplate="content"
+        let-prevCallback="prevCallback"
+        let-nextCallback="nextCallback"
+        let-index="index"
+      >
+        @defer (when stepperActive() === 1) {
+        <div class="form">
+          <div class="field">
+            <p-dropdown
+              [options]="roles()"
+              dataKey="id"
+              inputId="role"
+              [style]="{ width: '100%' }"
+              [ngClass]="getErrorMessage('rol') ? 'ng-invalid ng-dirty' : ''"
+              formControlName="role"
+              ariaLabelledBy="role-span"
+              appendTo="body"
+              aria-describedby="rol-help"
+              placeholder="Rol"
+              optionLabel="description"
+            />
+            @if (getErrorMessage('rol')) {
+            <small class="messageHelp" id="rol-help">
+              {{ getErrorMessage("rol") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <input
+              pInputText
+              id="username"
+              autocomplete="username"
+              aria-describedby="username-help"
+              formControlName="username"
+              placeholder="Nombre de Usuario"
+              [ngClass]="
+                getErrorMessage('username') ? 'ng-invalid ng-dirty' : ''
+              "
+            />
+            @if (getErrorMessage('username')) {
+            <small class="messageHelp" id="username-help">
+              {{ getErrorMessage("username") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <p-password
+              inputId="password"
+              appendTo="body"
+              aria-describedby="password-help"
+              formControlName="password"
+              placeholder="Contraseña"
+              [ngClass]="
+                getErrorMessage('password') ? 'ng-invalid ng-dirty' : ''
+              "
+              promptLabel="Ingresa una contraseña"
+              weakLabel="Debil"
+              autocomplete="new-password"
+              mediumLabel="Media"
+              strongLabel="Fuerte"
+              [toggleMask]="true"
+            />
+            @if (getErrorMessage('password')) {
+            <small class="messageHelp" id="password-help">
+              {{ getErrorMessage("password") }}
+            </small>
+            }
+          </div>
+          <div class="field">
+            <p-password
+              inputId="password-confirm"
+              aria-describedby="password-confirm-help"
+              [ngClass]="
+                getErrorMessage('passwordConfirm') ? 'ng-invalid ng-dirty' : ''
+              "
+              autocomplete="new-password"
+              formControlName="passwordConfirm"
+              placeholder="Confirmar Contraseña"
+              [feedback]="false"
+              [toggleMask]="true"
+            />
+            @if (form.get('passwordConfirm')?.value !== '') {
+            <small
+              class="messageHelp"
+              id="password-confirm-help"
+              [style]="
+                form.get('passwordConfirm')?.hasError('mismatch')
+                  ? 'color: red'
+                  : 'color: green'
+              "
+            >
+              {{
+                form.get("passwordConfirm")?.hasError("mismatch")
+                  ? "Las contraseñas no coinciden."
+                  : "Las contraseñas coinciden."
+              }}
+              <i
+                [class]="
+                  form.get('passwordConfirm')?.hasError('mismatch')
+                    ? 'pi pi-check-circle'
+                    : 'pi pi-check-circle'
+                "
+                [style]="
+                  form.get('passwordConfirm')?.hasError('mismatch')
+                    ? 'color: red'
+                    : 'color: green'
+                "
+              ></i>
+            </small>
+            }
+          </div>
+        </div>
+        <div class="form-actions">
+          <p-button
+            [rounded]="true"
+            [text]="true"
+            icon="pi pi-arrow-left"
+            (onClick)="prevCallback.emit()"
+          />
+          <p-button
+            [disabled]="form.invalid"
+            label="Guardar"
+            (onClick)="create()"
+          />
+        </div>
+        }
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
+</form>
